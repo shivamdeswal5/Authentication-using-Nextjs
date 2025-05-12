@@ -6,11 +6,6 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 
-export async function logout() {
-  const session = await getSession();
-  session.destroy();
-  redirect("/login-ironsession");
-}
 
 //to decrypt the session
 export async function getSession() {
@@ -23,6 +18,12 @@ export async function getSession() {
   return session;
 }
 
+export async function logout() {
+  const session = await getSession();
+  session.destroy();
+  redirect("/login-ironsession");
+}
+
 
 export async function login(
   prevState:{error:undefined | string},
@@ -33,14 +34,24 @@ export async function login(
   const formEmail = formData.get("username") as string;
   const formPassword = formData.get("password") as string;
 
-    const User = {
-    id: 1,
-    email: "shivam@gmail.com",
-    password: "shivam", 
-  };
+  //   const User = {
+  //   id: 1,
+  //   email: "shivam@gmail.com",
+  //   password: "shivam", 
+  // };
 
-  if (formEmail !== User.email || formPassword !== User.password) {
-    return { error: "Wrong Credentials!" };
+  // if (formEmail !== User.email || formPassword !== User.password) {
+  //   return { error: "Wrong Credentials!" };
+  // }
+  
+  const User = {
+    id:1,
+    email:formEmail,
+    img:"avatar.png"
+  }
+
+  if(!User){
+    return { error: "Wrong Credentials!" }
   }
 
   session.isLoggedIn = true;
