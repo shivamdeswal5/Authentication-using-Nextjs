@@ -12,7 +12,7 @@ export default async function page() {
       <h1>Welcome to home page authentication using iron-session</h1>
 
       <h1>Session Email: {session.email}</h1>
-
+      <h1>Session Status: {session.isLoggedIn ? "Logged In" : "Not Logged In"}</h1>
       <LogoutForm/>
     </>
   )
